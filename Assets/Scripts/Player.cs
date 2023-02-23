@@ -1,7 +1,4 @@
-using Mono.Cecil;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -10,17 +7,18 @@ public class Player : MonoBehaviour
     [Header("Movimiento")]
     [SerializeField] float velocidad = 2f;
 
+    Vector3 axis;
+
     [Header("Componentes")]
     Transform sprite;
     Animator animator;
-
-    Vector3 axis;
-    Estados estados;
 
     // rotaciones
     int direccionAnim = -1;
     Quaternion rotacionDerecha;
     Quaternion rotacionIzquierda;
+
+    Usable usableActivo;
 
     private void Awake()
     {
@@ -41,6 +39,12 @@ public class Player : MonoBehaviour
     void Update()
     {
         axis = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (usableActivo)
+                usableActivo.Usar(this);
+        }
     }
 
     private void FixedUpdate()
@@ -78,11 +82,33 @@ public class Player : MonoBehaviour
         }
     }
 
-    public Estados Estado
+    #region Triggers
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        get => estados;
-        set => estados = value;
+        switch (collision.tag)
+        {
+            case "Usable":
+                Usable usable = collision.GetComponent<Usable>();
+                usable.Activado = true;
+                usableActivo = usable;
+                break;
+        }
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        switch (collision.tag)
+        {
+            case "Usable":
+                Usable usable = collision.GetComponent<Usable>();
+                usable.Activado = false;
+                usableActivo = null;
+                break;
+        }
+    }
+
+    #endregion
 
     #region Stats
 
@@ -241,5 +267,5 @@ public enum Estados
 {
     Idle,
     Caminando,
-
+    atacando
 }

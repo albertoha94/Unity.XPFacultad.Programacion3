@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Usable
   layers:
   - Default
   - TransparentFX
@@ -25,9 +26,9 @@ TagManager:
   - 
   - 
   - 
-  - Layer 1
-  - Layer 2
-  - Layer 3
+  - Layer1
+  - Layer2
+  - Layer3
   - 
   - 
   - 
@@ -41,12 +42,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Layer 1
+  - name: Layer1
     uniqueID: 2425651459
     locked: 0
-  - name: Layer 2
+  - name: Layer2
     uniqueID: 4250941897
     locked: 0
-  - name: Layer 3
+  - name: Layer3
     uniqueID: 4189426099
+    locked: 0
+  - name: UI
+    uniqueID: 3592238597
     locked: 0
