@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor.UI;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class HUD : MonoBehaviour
     [SerializeField] SlotStat hambre;
     [SerializeField] SlotStat calor;
     [SerializeField] SlotStat limpieza;
+    [SerializeField] TMP_Text monedas;
 
     private void Awake()
     {
@@ -23,4 +25,9 @@ public class HUD : MonoBehaviour
     public static SlotStat Hambre => self.hambre;
     public static SlotStat Calor => self.calor;
     public static SlotStat Limpieza => self.limpieza;
+
+    public static int Monedas
+    {
+        set => self.monedas.text = value.ToString();
+    }
 }

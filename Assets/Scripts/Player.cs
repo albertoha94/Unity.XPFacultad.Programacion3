@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.UI;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -113,6 +114,7 @@ public class Player : MonoBehaviour
     #region Stats
 
     [Header("Stats")]
+
     [SerializeField] int _sleepMax;
     [SerializeField] float tiempoConsumoSleep;
 
@@ -133,6 +135,7 @@ public class Player : MonoBehaviour
     private int _calor;
     private int _hambre;
     private int _limpieza;
+    private int _monedas = 0;
 
     private void InicializarStats()
     {
@@ -141,6 +144,7 @@ public class Player : MonoBehaviour
         Calor = _calorMax;
         Hambre = _hambreMax;
         Limpieza = _limpiezaMax;
+        _monedas = 0;
     }
 
     private void InicializarCorrutinas()
@@ -257,6 +261,16 @@ public class Player : MonoBehaviour
             _limpieza = limitValues(value, 0, _limpiezaMax);
             HUD.Limpieza.Texto = _limpieza + "/" + _limpiezaMax;
             HUD.Limpieza.BarraRelleno = (float)_limpieza/ _limpiezaMax;
+        }
+    }
+
+    public int Monedas
+    {
+        get => _monedas;
+        set
+        {
+            _monedas = value;
+            HUD.Monedas = value;
         }
     }
 
