@@ -1,28 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SlotItem : MonoBehaviour
+public class SlotItem : MonoBehaviour, IPointerClickHandler
 {
 
     private Image icono;
-    private Item _item;
+    private ItemSo _itemSo;
 
     private void Awake()
     {
         icono = transform.GetChild(0).GetComponent<Image>();
     }
 
-    void OnPointerClick(PointerEventData eventData)
+    void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
-
+        Inventario.SlotItemActivo = this;
     }
 
-    public Item Item
+    public ItemSo ItemSo
     {
-        get => _item;
-        set => _item = value;
+        get => _itemSo;
+        set
+        {
+            _itemSo = value;
+
+            if (value)
+            {
+                icono.enabled = true;
+                icono.sprite = value.Icono;
+            }
+            else
+            {
+                icono.enabled = false;
+            }
+        }
     }
 }

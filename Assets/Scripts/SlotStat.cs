@@ -18,9 +18,9 @@ public class SlotStat : MonoBehaviour
 
     private void ObtenerComponentes()
     {
-        _icono = transform.GetChild(0).GetComponent<Image>();
-        _texto = transform.GetChild(1).GetComponent<TMP_Text>();
-        _barra = transform.GetChild(2).GetComponent<Image>();
+        _icono = transform.GetChild(1).GetComponent<Image>();
+        _texto = transform.GetChild(2).GetComponent<TMP_Text>();
+        _barra = transform.GetChild(3).GetChild(0).GetComponent<Image>();
     }
 
     private void AplicarCambios()

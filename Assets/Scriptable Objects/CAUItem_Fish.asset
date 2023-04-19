@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 399b208b2325fad45b2c6c7deed6d1dd, type: 3}
+  m_Name: CAUItem_Fish
+  m_EditorClassIdentifier: 
+  nombre: Fish
+  icono: {fileID: 21300000, guid: b416145d20baa364598d07e1740ae2fb, type: 3}
+  isUsable: 1
+  usableText: Eat
+  descripcion: 'Hunger +20.
+
+    Hygiene -5.'
+  hygieneAmount: -5
+  sleepAmount: 0
+  thirstAmount: 0
+  heatAmount: 0
+  hungerAmount: 20
+  coinAmount: 0

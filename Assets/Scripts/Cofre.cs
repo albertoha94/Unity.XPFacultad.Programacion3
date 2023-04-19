@@ -9,7 +9,7 @@ public class Cofre : MonoBehaviour, IUsable
 
     private void Awake()
     {
-        spriteRenderer= GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         usable = GetComponentInChildren<Usable>();
     }
 

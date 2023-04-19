@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Puerta : MonoBehaviour, IUsable
@@ -8,6 +6,12 @@ public class Puerta : MonoBehaviour, IUsable
 
     public void Usar(Player player)
     {
-
+        var keyFound = Inventario.FindKey(llaveId);
+        if (keyFound != null)
+        {
+            Inventario.SlotItemActivo = keyFound;
+            Inventario.UseActiveItem();
+            Destroy(gameObject);
+        }
     }
 }

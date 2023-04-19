@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor.UI;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -45,6 +44,10 @@ public class Player : MonoBehaviour
         {
             if (usableActivo)
                 usableActivo.Usar(this);
+        }
+        else if (Input.GetKeyDown(KeyCode.I))
+        {
+            Inventario.Activo = !Inventario.Activo;
         }
     }
 
@@ -93,6 +96,11 @@ public class Player : MonoBehaviour
                 Usable usable = collision.GetComponent<Usable>();
                 usable.Activado = true;
                 usableActivo = usable;
+                break;
+            case "Item":
+                var itemSo = collision.GetComponent<Item>().ItemSo;
+                Inventario.AgregarItem(itemSo);
+                Destroy(collision.gameObject);
                 break;
         }
     }
@@ -149,51 +157,36 @@ public class Player : MonoBehaviour
 
     private void InicializarCorrutinas()
     {
-        StartCoroutine(CrConsumirSleep());
-        StartCoroutine(CrConsumirSed());
-        StartCoroutine(CrConsumirCalor());
-        StartCoroutine(CrConsumirHambre());
-        StartCoroutine(CrConsumirLimpieza());
+        StartCoroutine(ConsumirStat(Stats.Sleep, tiempoConsumoSleep));
+        StartCoroutine(ConsumirStat(Stats.Thirst, tiempoConsumoSed));
+        StartCoroutine(ConsumirStat(Stats.Heat, tiempoConsumoCalor));
+        StartCoroutine(ConsumirStat(Stats.Hunger, tiempoConsumoHambre));
+        StartCoroutine(ConsumirStat(Stats.Clean, tiempoConsumoLimpieza));
     }
 
-    private IEnumerator CrConsumirSleep()
+    private IEnumerator ConsumirStat(Stats stat, float consumeTime)
     {
         while (true)
         {
-            yield return new WaitForSecondsRealtime(tiempoConsumoSleep);
-            Sleep--;
-        }
-    }
-    private IEnumerator CrConsumirSed()
-    {
-        while (true)
-        {
-            yield return new WaitForSecondsRealtime(tiempoConsumoSed);
-            Sed--;
-        }
-    }
-    private IEnumerator CrConsumirCalor()
-    {
-        while (true)
-        {
-            yield return new WaitForSecondsRealtime(tiempoConsumoCalor);
-            Calor--;
-        }
-    }
-    private IEnumerator CrConsumirHambre()
-    {
-        while (true)
-        {
-            yield return new WaitForSecondsRealtime(tiempoConsumoHambre);
-            Hambre--;
-        }
-    }
-    private IEnumerator CrConsumirLimpieza()
-    {
-        while (true)
-        {
-            yield return new WaitForSecondsRealtime(tiempoConsumoLimpieza);
-            Limpieza--;
+            yield return new WaitForSecondsRealtime(consumeTime);
+            switch (stat)
+            {
+                case Stats.Sleep:
+                    Sleep--;
+                    break;
+                case Stats.Thirst:
+                    Sed--;
+                    break;
+                case Stats.Hunger:
+                    Hambre--;
+                    break;
+                case Stats.Heat:
+                    Calor--;
+                    break;
+                case Stats.Clean:
+                    Limpieza--;
+                    break;
+            }
         }
     }
 
@@ -282,4 +275,13 @@ public enum Estados
     Idle,
     Caminando,
     atacando
+}
+
+enum Stats
+{
+    Sleep,
+    Thirst,
+    Hunger,
+    Heat,
+    Clean
 }
